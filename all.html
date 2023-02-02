@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Password Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap');
+
+:root {
+	--dark: #000000;
+	--darker: #303031;
+	--darkest: #111827;
+	--grey: #8453c0;
+	--pink: #13ed46;
+	--purple: #8B5CF6;
+	--light: #dad6d6;
+}
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Cedarville Cursive', cursive;
+    font-size: larger;
+    overflow-x: hidden;
+}
+main{
+    position: relative;
+    right: -35%;
+    bottom: -40%;
+    top: 350px;
+
+}
+input{
+    padding:3px;
+    margin:3px;
+}
+
+button{
+  background-color: var(--pink);
+	font-size: 20px;
+	font-weight: 70;
+	background-image: linear-gradient(to right, var(--pink), var(--purple));
+	cursor: pointer;
+	transition: 0.4s;
+    border: none;
+    padding:5px;
+    
+}
+input:focus{
+    outline:none;
+border: 1px solid rgb(0, 30, 255);
+border-radius: 7px;
+
+}
+#password{
+   
+    
+   background-color: #C9559B; 
+   grid-row-start: 2;
+   grid-column-start: 1;
+
+   grid-row-end: 3;
+   grid-column-end: 4;
+}
+#password:focus{
+    border:none;
+}
+#gn{
+    background-color: #5AEDDB; 
+    grid-row-start: 1;
+    grid-column-start: 1;
+ 
+    grid-row-end: 2;
+    grid-column-end: 4;
+    align-items: center;
+    justify-items: center;
+   
+}
+.check{
+    width: 40px; 
+    height: 40px;
+}
+.cs{
+    margin-left: 20px;
+}
+#password-length{
+    size: 30px;
+}
+.generated{
+    border:1px black;
+display: grid; 
+
+grid-template-rows: 1fr 1fr 1fr;
+grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+gap: 0px;
+height: 100%;
+
+/* box-shadow: 8px 10px 74px 0px rgba(0,0,0,0.55);
+-webkit-box-shadow: 8px 10px 74px 0px rgba(0,0,0,0.55);
+-moz-box-shadow: 8px 10px 74px 0px rgba(0,0,0,0.55); */
+}
+
+    .slider p {
+    font-size: 26px;
+    font-weight: 600;
+    font-family: Open Sans;
+    padding-left: 30px;
+    color: black;
+    }
+    .slider input[type="range"] {
+    -webkit-appearance:none !important;
+    width: 320px;
+    height: 2px;
+    background: black;
+    border: none;
+    outline: none;
+    }
+    .slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    width: 30px;
+    height:30px;
+    background: black;
+    border: 2px solid black;
+    border-radius: 50%;
+    cursor: pointer;
+    }
+    .slider input[type="range"]::-webkit-slider-thumb:hover {
+    background: black;
+    }
+    </style>
+  </head>
+  <body>
+    <main>
+    <h1>Random Password Generator</h1>
+    <br>
+    <div class="generated">
+    <label for="password" id="gn">Generated Password</label>
+    <br>
+    <input type="text" id="password" readonly ></div><br>
+    <div class="slider">
+      <label for="password-length">Password Length:</label><br>
+      <input type="range" min="1" id="password-length" max="20" value="3" oninput="rangeValue.innerText = this.value">
+      <span id="rangeValue">2</span>
+      </div>
+    <br>
+    <label for="include-numbers">Include Numbers</label>
+    <input type="checkbox" id="include-numbers" class="check" checked>
+    <br>
+    <label for="include-symbols">Include Symbols</label>
+    <input type="checkbox" class="check cs" id="include-symbols" checked>
+    <br>
+    <br>
+    <button id="generate-button">Generate Password</button>
+    <br>
+    
+    </main>
+
+
+
+
+    <script >
+   window.onload = function(){
+    document.getElementById("generate-button").addEventListener("click", function(){
+      const length = document.getElementById("password-length").value;
+      const includeNumbers = document.getElementById("include-numbers").checked;
+      const includeSymbols = document.getElementById("include-symbols").checked;
+      const password = generatePassword(length, includeNumbers, includeSymbols);
+      document.getElementById("password").value = password;
+    });
+    
+    function generatePassword(length, includeNumbers, includeSymbols) {
+      let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      if (includeNumbers) {
+        characters += '0123456789';
+      }
+      if (includeSymbols) {
+        characters += '!@#$%^&*()_+-=';
+      }
+      let password = '';
+      for (let i = 0; i < length; i++) {
+        password += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return password;
+    }
+  }
+    </script>
+  </body>
+</html>
