@@ -44,7 +44,7 @@ function generatePassword(characterAmount, includeUppercase, includeNumbers, inc
 }
 
 function arrayFromLowToHigh(low, high) {
-  const array = []
+  const array = [i]
   for (let i = low; i <= high; i++) {
     array.push(i)
   }
